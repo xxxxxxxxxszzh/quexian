@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: quexian_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  web:
+    build: .
+    container_name: quexian_web
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_DEBUG: "0"
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+
+      MYSQL_HOST: db
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - media_data:/app/media          # ✅ 上传和推理结果持久化
+      - static_data:/app/staticfiles   # ✅ collectstatic 产物持久化
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql_data:
+  media_data:
+  static_data:

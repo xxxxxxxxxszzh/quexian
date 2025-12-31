@@ -1,0 +1,21 @@
+# secret
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# python cache
+__pycache__/
+*.pyc
+
+# local runtime outputs
+db.sqlite3
+media/
+staticfiles/
+
+# model weights (不要上 GitHub)
+*.pt
+*.ckp
+*.pth
+*.onnx

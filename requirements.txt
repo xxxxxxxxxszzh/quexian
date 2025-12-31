@@ -1,0 +1,13 @@
+Django>=5.2
+gunicorn>=21.2
+mysqlclient>=2.2
+whitenoise>=6.6
+Pillow>=10.0
+
+# 推理相关（按你的代码需要）
+torch
+torchvision
+
+# OpenCV：容器里推荐 headless
+opencv-python-headless
+numpy
